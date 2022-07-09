@@ -74,8 +74,10 @@ public class Kata11 {
                                         .filter(book -> book.get("videoId").equals(i.get("id")))
                                         .map(ti -> ti.get("time")).findFirst().orElseThrow(),
                                 "boxart", boxArts.stream()
-                                        .sorted()
-                                        .findFirst().orElseThrow()))
+                                                .filter(box -> box.get("videoId").equals(i.get("id")))
+                                                .map(box1 -> Map.of("width",box1.get("width"),"url", box1.get("url")))
+                                                .sorted()
+                                                .findFirst().get().get("url")))
                                 )))
                 .collect(Collectors.toList());
 
