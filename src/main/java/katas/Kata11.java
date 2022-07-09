@@ -76,10 +76,12 @@ public class Kata11 {
                                 "boxart", boxArts.stream()
                                                 .filter(box -> box.get("videoId").equals(i.get("id")))
                                                 .map(box1 -> Map.of("width",box1.get("width"),"url", box1.get("url")))
-                                                .sorted()
-                                                .findFirst().get().get("url")))
-                                )))
-                .collect(Collectors.toList());
+                                                .reduce((a, b)-> a.get("width").hashCode() < b.get("width").hashCode()? a : b)
+                                                        .get().get("url")))
+
+                                                .collect(Collectors.toList())
+                                ))).collect(Collectors.toUnmodifiableList());
+
 
          System.out.println(listCombined);
 
